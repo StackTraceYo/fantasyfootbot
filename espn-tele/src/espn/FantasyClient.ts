@@ -1,30 +1,22 @@
 import {Client} from 'espn-fantasy-football-api/node-dev';
 import {Player, Team} from "./model/Team";
 import * as winston from "winston";
+import {EspnTeleConfig} from "../EspnTele";
 
 const _logger = winston.createLogger({
     level: 'debug',
-    defaultMeta: { service: 'FantasyClient' },
+    defaultMeta: {service: 'FantasyClient'},
     transports: new winston.transports.Console()
 });
-
-export interface FantasyClientConfig {
-    leagueId: number,
-    s2: string,
-    swid: string,
-    season: number,
-    start: Date
-}
-
 
 
 export class FantasyClient {
 
     private _espnClient: any;
-    private _config: FantasyClientConfig;
+    private _config: EspnTeleConfig;
 
 
-    public constructor(config: FantasyClientConfig) {
+    public constructor(config: EspnTeleConfig) {
         this._espnClient = new Client({leagueId: config.leagueId});
         this._espnClient.setCookies({espnS2: config.s2, SWID: config.swid});
         this._config = config;
@@ -32,8 +24,8 @@ export class FantasyClient {
 
     async getAll() {
         const teams = await this.getTeams();
-        let players : Player[] = await this.getFA();
-        teams.forEach(team => {
+        let players: Player[] = await this.getFA();
+        teams.forEach((team: Team) => {
             players = players.concat(team.roster);
         });
 
@@ -45,11 +37,11 @@ export class FantasyClient {
 
     async getTeams(): Promise<Team[]> {
         _logger.info(`Getting Teams for week ${this.week()} ...`);
-        const teams : Team[] = await this._espnClient.getTeamsAtWeek({
+        const teams: Team[] = await this._espnClient.getTeamsAtWeek({
             seasonId: this._config.season,
             scoringPeriodId: this.week()
         });
-        return teams.map(teamData => {
+        return teams.map((teamData: Team) => {
             teamData._id = teamData.id;
             teamData.rosterIds = teamData.roster.map(p => p.id);
             teamData.updated = new Date().toISOString();
@@ -57,15 +49,15 @@ export class FantasyClient {
         })
     }
 
-    async getFA() : Promise<Player[]> {
+    async getFA(): Promise<Player[]> {
         _logger.info("Getting FA...");
-        const data : any[] = await this._espnClient.getFreeAgents({
+        const data: any[] = await this._espnClient.getFreeAgents({
             seasonId: this._config.season,
             scoringPeriodId: this.week(),
             matchupPeriodId: this.week()
         });
 
-        return data.map(player => {
+        return data.map((player: any) => {
             const playerData = player.player;
             playerData._id = player.player.id;
             playerData.updated = new Date().toISOString();

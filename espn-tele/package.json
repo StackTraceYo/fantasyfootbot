@@ -31,11 +31,12 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@types/nedb": "^1.8.9",
+    "@types/winston": "^2.4.4",
     "espn-fantasy-football-api": "^0.11.0",
     "nedb": "^1.8.0",
+    "rxjs": "^6.5.3",
     "telegraf": "^3.32.0",
     "tslib": "~1.10.0",
-    "winston": "^3.2.1",
-    "@types/winston": "^2.4.4"
+    "winston": "^3.2.1"
   }
 }
