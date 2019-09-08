@@ -1,11 +1,12 @@
 export interface Team {
-
     id: number
+    _id: number
     abbreviation: string
     name: string
     logoURL: string
     wavierRank: number
     roster: Player[]
+    rosterIds: number[]
     wins: number
     losses: number
     ties: number
@@ -24,12 +25,25 @@ export interface Team {
     winningPercentage: number
     playoffSeed: number
     finalStandingsPosition: number
+    updated: string
 
+}
 
+export interface TeamIdx {
+    _id: number,
+    _tId: number
+    _pId: number
+}
+
+export interface PlayerIdx {
+    id: number
+    _id: number,
+    teamID: number
 }
 
 export interface Player {
     id: number
+    _id: number
     firstName: string
     lastName: string
     fullName: string
@@ -48,5 +62,5 @@ export interface Player {
     isDroppable: boolean
     isInjured: boolean
     injuryStatus: string
-
+    updated: string
 }

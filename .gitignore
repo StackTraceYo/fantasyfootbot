@@ -63,3 +63,4 @@ typings/
 */build
 .idea
 .DS_Store
+*/data/*.db
