@@ -1,33 +1,61 @@
-/**
- * Some predefined delays (in milliseconds).
- */
-export enum Delays {
-  Short = 500,
-  Medium = 2000,
-  Long = 5000,
+import * as dotenv from 'dotenv';
+import EspnTeleBot, {EspnTeleConfig} from "./EspnTele";
+
+
+function error(msg: string) {
+    return new Error(`Error In Environment Parsing: ${msg}`)
 }
 
-/**
- * Returns a Promise<string> that resolves after given time.
- *
- * @param {string} name - A name.
- * @param {number=} [delay=Delays.Medium] - Number of milliseconds to delay resolution of the Promise.
- * @returns {Promise<string>}
- */
-function delayedHello(
-  name: string,
-  delay: number = Delays.Medium,
-): Promise<string> {
-  return new Promise((resolve: (value?: string) => void) =>
-    setTimeout(() => resolve(`Hello, ${name}`), delay),
-  );
+function validateNum(num: number, n: string) {
+    const valid = num !== undefined && num !== null && !isNaN(num);
+    if (valid) {
+        return num
+    } else {
+        throw error(`Number Is Not Valid ${num} for field ${n}`)
+    }
 }
 
-// Below are examples of using TSLint errors suppression
-// Here it is suppressing missing type definitions for greeter function
 
-// tslint:disable-next-line typedef
-export async function greeter(name) {
-  // tslint:disable-next-line no-unsafe-any no-return-await
-  return await delayedHello(name, Delays.Long);
+function validateDate(d: string, n: string) {
+    const date = new Date(d);
+    const valid = validateNum(date.getTime(), n);
+    if (valid) {
+        return date;
+    } else {
+        throw error(`Date Is Not Valid ${d} for field ${n}`)
+    }
 }
+
+function validate(s: string, n: string) {
+    const valid = s !== null && s !== undefined && s !== "";
+    if (valid) {
+        return s;
+    } else {
+        throw error(`String Is Not Valid ${s} for field ${n}`)
+    }
+}
+
+function loadEnv() {
+    dotenv.config();
+    const config: EspnTeleConfig = {
+        filePath: '/Users/ahmad/projects/fantasyfootbot/espn-tele/data',
+        leagueId: validateNum(parseInt(process.env.ESPN_LEAGUE_ID), 'ESPN_LEAGUE_ID'),
+        refresh: validateNum(parseInt(process.env.REFRESH_SECONDS), 'REFRESH_SECONDS') * 1000,
+        s2: validate(process.env.ESPN_S2, 'ESPN_S2'),
+        swid: validate(process.env.ESPN_SWID, 'ESPN_SWID'),
+        start: validateDate(process.env.START_DAY, 'START_DAY'),
+        season: validateDate(process.env.START_DAY, 'Season.  START_DAY -> Used for Season Year').getFullYear(),
+        teleToken: validate(process.env.TELEGRAM_TOKEN, 'TELEGRAM_TOKEN'),
+    };
+
+    return config;
+}
+
+
+export function run() {
+    const config = loadEnv();
+    const t = new EspnTeleBot(config);
+    t.launch();
+}
+
+run();

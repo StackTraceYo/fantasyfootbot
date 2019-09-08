@@ -65,7 +65,8 @@ export class ESPNDataStore {
 
     async refreshTeams(teams: Team[]) {
         await this.removeTeams();
-        const reAdded = this.insertTeams(teams);
+        await this._teamStore.persistence.compactDatafile();
+        const reAdded = await this.insertTeams(teams);
         _logger.info("Refreshed Teams");
         return reAdded;
     }
@@ -78,6 +79,18 @@ export class ESPNDataStore {
                     reject(err);
                 } else {
                     resolve(docs);
+                }
+            });
+        });
+    }
+
+    updateTeams(teams: Team[]): Promise<Team[]> {
+        return new Promise((resolve, reject) => {
+            this._teamStore.update(teams.map(t => {_id : t._id}), teams, {}, (err, _docs) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(teams);
                 }
             });
         });

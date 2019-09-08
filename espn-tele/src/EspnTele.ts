@@ -17,18 +17,6 @@ export interface EspnTeleConfig {
     teleToken: string,
     refresh?: number
 }
-
-const config = {
-    leagueId: 1250436,
-    swid: '45b9a8b3-dba9-445c-ad6c-5d38b976b378',
-    s2: 'AEBHQCJvfz7%2B8Aph55BnyIZkW5AxLpM4Rf7SdbQ1qWfiW%2FYb2HGhiSMUlhvPq8QWI4zGp5XIXpayHd1bipk8svZLLDki9jG%2BZZVolUQyquZVk2W9DNKEmzmucRsvgDrqegGiJOq611VwxykLO92PdN4hKFq3%2FfiO35TnICFC27oW1JA%2FIOvr8y3UpN2NpLXEDxBdTlPRRi3Pazn34dFTL3CBac%2B2wzodCtH%2FFn8iRxSTFcuQ3HFOvUmPbK8MADrRQNLR9wlw3N0rk8NMXsL%2BCpDm',
-    season: new Date().getFullYear(),
-    start: new Date("Th, 05 Sep 2019 00:0:0 EST"),
-    filePath: '/home/ahmad/projects/fantasyfootbot/espn-tele/data',
-    teleToken: '989934673:AAEIM3GdWXayCB3YCiKMnePP1z50MvGRMZI',
-};
-
-
 export default class EspnTeleBot {
 
     private readonly _client: FantasyClient;
@@ -62,24 +50,34 @@ export default class EspnTeleBot {
     }
 
     push(update: UpdatedTeam) {
-        this._tele.send(update.name + "has made changed");
+        const name = update.name;
+        let msg = "-----------------------------\n" + `${name} has made changes:\n\n`;
+        if(update.newPlayers.length > 0){
+            msg += `New Players Added:\n `;
+            msg += update.newPlayers.map(p => {
+                return `${p.fullName} - Postion: ${p.defaultPosition} - Team: ${p.proTeam}`
+            }).join('\n');
+        }
+        msg += "\n-----------------------------\n\t";
+        if(update.removedPlayers.length > 0){
+            msg += `Players Dropped:\n `;
+            msg += update.removedPlayers.map(p => {
+                return `${p.fullName} - Postion: ${p.defaultPosition} - Team: ${p.proTeam}`
+            }).join('\n')
+        }
+        this._tele.send(msg);
     }
 
     launch() {
-        interval(this._config.refresh | 2000)
+        interval(this._config.refresh)
             .pipe(
                 map(_s => this._tele.started()),
                 filter(started => started),
                 flatMap(checkRosterOperator(this))
             )
             .subscribe((s: UpdatedTeam) => {
-                t.push(s);
-                t.client().getTeams().then(teams => t.store().refreshTeams(teams))
+                this.push(s);
+                this.client().getTeams().then(teams => this.store().refreshTeams(teams))
             });
     }
-
-
 }
-const t = new EspnTeleBot(config);
-t.launch();
-
