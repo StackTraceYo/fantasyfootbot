@@ -38,7 +38,7 @@ function validate(s: string, n: string) {
 function loadEnv() {
     dotenv.config();
     const config: EspnTeleConfig = {
-        filePath: '/Users/ahmad/projects/fantasyfootbot/espn-tele/data',
+        filePath: process.env.STORAGE_PATH || '/data',
         leagueId: validateNum(parseInt(process.env.ESPN_LEAGUE_ID), 'ESPN_LEAGUE_ID'),
         refresh: validateNum(parseInt(process.env.REFRESH_SECONDS), 'REFRESH_SECONDS') * 1000,
         s2: validate(process.env.ESPN_S2, 'ESPN_S2'),
