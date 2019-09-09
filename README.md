@@ -14,7 +14,7 @@ ESPNTele: Telegram bot for ESPN Fantasy Football
   #### example of what it looks like (kind of)
   
  
-  ```
+```
 /start
 
 Starting
@@ -33,7 +33,6 @@ New Players Added:
 -----------------------------
  Players Dropped:
  Kerryon Johnson - Postion: RB - Team: Detroit Lions
-
 ```
 
 ## commands:
