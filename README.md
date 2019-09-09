@@ -6,8 +6,10 @@ ESPNTele: Telegram bot for ESPN Fantasy Football
 
 
 ## commands:
-* /start
+* /start 
+** this starts the bot
 * /stop
+** this will stop the bot
 
 How to run
 --------------
