@@ -1,0 +1,72 @@
+[{
+  "player": {
+    "seasonId": 2019,
+    "id": 3144062,
+    "firstName": "Khari",
+    "fullName": "Khari Lee",
+    "lastName": "Lee",
+    "jerseyNumber": 88,
+    "proTeam": "Buffalo Bills",
+    "proTeamAbbreviation": "BUF",
+    "defaultPosition": "WR",
+    "eligiblePositions": [
+      "WR/TE",
+      "TE",
+      "RB/WR/TE",
+      "OP",
+      "Bench",
+      "IR"
+    ],
+    "averageDraftPosition": 169.99639569227364,
+    "auctionValueAverage": 0.00006217358865953743,
+    "percentChange": -0.0005139754570995464,
+    "percentStarted": 0.0010683132935564684,
+    "percentOwned": 0.0033575560654631863,
+    "availabilityStatus": "FREEAGENT",
+    "isDroppable": true,
+    "isInjured": false,
+    "injuryStatus": "ACTIVE"
+  },
+  "rawStats": {
+    "usesPoints": false
+  },
+  "projectedRawStats": {
+    "usesPoints": false
+  },
+  "_id": "01Xcqnf5hOjDcl5s",
+  "createdAt": {
+    "$$date": 1567824484086
+  },
+  "updatedAt": {
+    "$$date": 1567824484086
+  },
+},
+{
+  leagueId: 1250436,
+  seasonId: 2019,
+  id: 12,
+  abbreviation: 'DAN',
+  name: '5 Strength 5 Stam',
+  logoURL: 'https://wow.zamimg.com/uploads/screenshots/small/550667.jpg',
+  roster: [
+  ],
+  wins: 0,
+  losses: 0,
+  ties: 0,
+  divisionWins: 0,
+  divisionLosses: 0,
+  divisionTies: 0,
+  homeWins: 0,
+  homeLosses: 0,
+  homeTies: 0,
+  awayWins: 0,
+  awayLosses: 0,
+  awayTies: 0,
+  totalPointsScored: 0,
+  regularSeasonPointsFor: 0,
+  regularSeasonPointsAgainst: 0,
+  winningPercentage: 0,
+  playoffSeed: 1,
+  finalStandingsPosition: 0
+}
+]
