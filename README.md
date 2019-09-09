@@ -4,12 +4,43 @@ Fantasy Football Bots
 ESPNTele: Telegram bot for ESPN Fantasy Football
 - v1 (Free Agent Pickup Feed) 
 
+## what it does
+- this bot will push notifications to a telegram channel when a team in your league either picks up or drops a player.
+- it does this by first getting the current state of the league, then diffing the players on subsequent checks.
+- this means that the initial state of the teams is when this is first run.
+  - if you opt into persisting your data, you can pick up where you were last time. by mounting the storage directory as described below
+  
+  
+  #### example of what it looks like (kind of)
+  
+ 
+  ```
+/start
+
+Starting
+
+-----------------------------
+TeamNameBlah1 has made changes:
+
+New Players Added:
+ Amari Cooper - Postion: RB/WR - Team: Dallas Cowboys
+-----------------------------
+
+TeamNameBlah2 has made changes:
+
+New Players Added:
+ Saquon Barkley - Postion: RB - Team: New York Giants
+-----------------------------
+ Players Dropped:
+ Kerryon Johnson - Postion: RB - Team: Detroit Lions
+
+```
 
 ## commands:
 * /start 
-- this starts the bot
+  - this starts the bot
 * /stop
-- this will stop the bot
+  - this will stop the bot
 
 How to run
 --------------
