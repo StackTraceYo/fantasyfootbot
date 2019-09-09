@@ -75,3 +75,11 @@ REFRESH_SECONDS=5
 `docker run --env-file bot.env -d -v ./path/to/data:/data stacktraceyo/espn-tele`
 	
 https://hub.docker.com/r/stacktraceyo/espn-tele
+
+### todo
+- make it more resillient and faster
+- other types of updates
+- better storage
+- formatting
+
+##### other feature requests welcome
