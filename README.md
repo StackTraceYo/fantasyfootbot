@@ -32,12 +32,13 @@ TELEGRAM_TOKEN=hsdjhjsahdkjashjkdhkjash
 REFRESH_SECONDS=5
 ```
 
-* the run (bot.env is ex env filename)
 
 * make a directory for the persistent data between runs (optional)
 * you will mount this folder under /data in the container if you want
 
 ##### with docker
+
+* the run (bot.env is ex env filename)
 
 `docker run --env-file bot.env -d -v ./path/to/data:/data stacktraceyo/espn-tele`
 	
